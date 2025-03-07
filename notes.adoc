@@ -1,0 +1,54 @@
+== Notes - YT "Creating a Simple Game in libGDX"
+
+* Les classes libGDX sont majoritairement issues du package `com.badlogic.gdx`
+* Les jeux en général utilisent plutôt des nombres flottants
+** en Java : `float nb = 42.5f;`
+* Les images, musiques, sons... sont à placer dans le répertoire `assets` à la racine du projet
+* Classe `Lwjgl3Launcher`
+** trouvez le fichier `Lwjgl3Launcher.java` (Ctrl-Shift-F pour rechercher)
+** c'est là que vous trouverez la méthode `main`, mais on ne va pas y toucher
+** en revanche, vous pouvez modifier la ligne `configuration.setWindowedMode(...)` pour changer la taille de la fenêtre de jeu
+
+=== Classe principale
+
+* Le code principal du jeu est en fait dans le fichier `core/src/main/.../Main.java`
+* Les variables accessibles à toutes les méthodes de la classe (textures...) sont à placer en haut de la classe (au dessus des méthodes et en dessous de la ligne `public class...`)
+** ex : `Texture background;`
+* La méthode `create()` est appelée peu après le lancement de l'application
+** considérez-la comme le `main` du programme
+** utilisez-la pour initialiser les variables déclarées auparavant
+*** ex : `background = new Texture("desert.png");`
+* Les méthodes définies par le framework utilisables ici spécifient le « cycle de vie » du jeu :
+** `create()` : appelée automatiquement 1 fois au démarrage
+** `render()` : appelée automatiquement à chaque _frame_ (plusieurs fois par seconde)
+** `pause()` / `resume()` : pause / reprise
+** `resize()` : redimensionnement
+** `dispose()` : libération de ressources
+
+=== Viewport
+
+* Le _Viewport_ est la vue sur le jeu
+** il y a plusieurs types de _Viewport_
+** `FitViewport` s'assure que l'ensemble du jeu est visible sur l'écran, quelles que soient sa taille ou son orientation
+** un _Viewport_ peut faire des choses plus complexes (contrôle de caméra, zoom...)
+** le _Viewport_ doit être mis à jour dans la méthode `resize()`
+
+=== `render()`
+
+La méthode `render()`, appelée à chaque _frame_, est le coeur de la boucle de jeu. Le _pattern_ principal à exécuter à chaque _frame_ est constitué des actions suivantes :
+
+* prendre les entrées du joueur
+* mettre à jour la logique de jeu (déplacement du joueur, des autres entités...)
+* mettre à jour l'écran de jeu avec ce nouvel état
+
+== Version 0.0.1
+
+* Affichage de Mario au centre de l'écran
+* On clique dessus, on a « GAGNÉ ! » (texte en surimpression au milieu de l'écran)
+
+== Version 0.0.2
+
+* Affichage des 4 personnages sur l'écran, de manière aléatoire
+* On clique sur Mario, on gagne de nouveau
+* On clique un autre personnage => PERDU !
+* _Timer_ de 5 secondes ; temps écoulé => PERDU !
