@@ -1,5 +1,8 @@
 package fr.pgah;
 
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
@@ -94,12 +97,28 @@ public class WantedGame extends ApplicationAdapter {
         loseCoord = new Vector2(click.x, click.y);
         score -= 5;
       }
+
+      //if (marioBounds.contains(click)) {
+        //lose = true;
+        //score -= 0;
+        //System.err.println("Vous avez perdu");
+      //}
+
       if (marioBounds.contains(click)) {
         win = true;
         score += 5;
       }
     }
-  }
+  
+
+
+    if (score == 0) {
+      lose = true;
+      JFrame jFrame = new JFrame();
+          JOptionPane.showMessageDialog(jFrame, "Vous avez perdu");
+        }
+      }
+
 
   private void drawNewFrame() {
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
